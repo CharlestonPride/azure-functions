@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace ChsPride
 {
@@ -23,40 +21,27 @@ namespace ChsPride
                 PartitionKey = "chspride")] IEnumerable<Director> directors,
             ILogger log)
     {
+      var executives = directors.Where(d => d.Executive)
+        .OrderBy(d => d.Order)
+        .Select(d => new DirectorDto(d));
 
-      foreach (var director in directors)
-      {
-        try
-        {
-          director.Elected = director.DateElected.ToString("MMMM yyyy");
-          director.ElectedToBoard = director.DateElectedToBoard.ToString("MMMM yyyy");
-          if (string.IsNullOrWhiteSpace(director.Bio))
-            continue;
-          director.BioParagraphs = director.Bio.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-        }
-        catch (Exception ex)
-        {
-          log.LogError(ex, ex.Message);
-        }
-      }
+      var members = directors.Where(d => !d.Executive)
+        .OrderBy(d => d.DateElectedToBoard)
+        .Select(d => new DirectorDto(d));
 
-      var directorsCollection = new DirectorsCollection(
-        directors.Where(d => d.Executive).OrderBy(d => d.Order),
-        directors.Where(d => !d.Executive).OrderBy(d => d.DateElectedToBoard));
-
-      return new OkObjectResult(directorsCollection);
+      return new OkObjectResult(new DirectorsCollection(executives, members));
     }
   }
 
   public class DirectorsCollection
   {
-    public DirectorsCollection(IEnumerable<Director> executives, IEnumerable<Director> members)
+    public DirectorsCollection(IEnumerable<DirectorDto> executives, IEnumerable<DirectorDto> members)
     {
       Executives = executives;
       Members = members;
     }
-    public IEnumerable<Director> Executives { get; set; }
-    public IEnumerable<Director> Members { get; set; }
+    public IEnumerable<DirectorDto> Executives { get; set; }
+    public IEnumerable<DirectorDto> Members { get; set; }
   }
   public class Director
   {
@@ -73,14 +58,8 @@ namespace ChsPride
     public DateTime DateElected { get; set; }
 
     public DateTime DateElectedToBoard { get; set; }
-    public string Elected { get; set; }
-
-    public string ElectedToBoard { get; set; }
-
     public Pronouns Pronouns { get; set; }
     public string Bio { get; set; }
-
-    public string[] BioParagraphs { get; set; }
   }
 
   public class Pronouns
@@ -90,5 +69,39 @@ namespace ChsPride
     public string Objective { get; set; }
 
     public string Possessive { get; set; }
+
+    public override string ToString()
+    {
+      return CultureInfo.CurrentCulture.TextInfo.ToTitleCase($"{Subjective}/{Objective}/{Possessive}");
+    }
+  }
+
+  public class DirectorDto
+  {
+    public DirectorDto(Director director)
+    {
+      Id = director.Id;
+      FirstName = director.FirstName;
+      LastName = director.LastName;
+      Title = director.Title;
+      Executive = director.Executive;
+      DateElected = director.DateElected.ToString("MMMM yyyy");
+      DateElectedToBoard = director.DateElectedToBoard.ToString("MMMM yyyy");
+      if (!string.IsNullOrWhiteSpace(director.Bio))
+      {
+        Bio = director.Bio.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+      }
+
+      Pronouns = director.Pronouns.ToString();
+    }
+    public string Id { get; }
+    public string FirstName { get; }
+    public string LastName { get; }
+    public string Title { get; }
+    public bool Executive { get; }
+    public string DateElected { get; }
+    public string DateElectedToBoard { get; }
+    public string Pronouns { get; set; }
+    public string[] Bio { get; }
   }
 }
