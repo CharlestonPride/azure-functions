@@ -10,9 +10,10 @@ namespace ChsPride
 {
   public static class GetAdvertisements
   {
+    //Note the route here can not be called advertisements. Chrome will block it
     [FunctionName("advertisements")]
     public static IActionResult Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "advertisements/{partitionKey}")]
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "guide/{partitionKey}")]
             HttpRequest req,
         [CosmosDB(databaseName: "ChsPride",
                 collectionName: "Advertisements",

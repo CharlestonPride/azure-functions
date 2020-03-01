@@ -79,7 +79,7 @@ namespace ChsPride
 
     private static bool ShouldGroup(HttpRequest req, string partitionKey)
     {
-      return partitionKey == "pride" && req.Query.ContainsKey("group") && bool.TryParse(req.Query["group"][0], out var shouldGroup) && shouldGroup;
+      return partitionKey == "chspride" && req.Query.ContainsKey("group") && bool.TryParse(req.Query["group"][0], out var shouldGroup) && shouldGroup;
     }
 
     private static readonly Random Rng = new Random();
