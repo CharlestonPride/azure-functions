@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "aeba612e-2487-4cb4-92db-6819bea53468",
+		"_postman_id": "8861544d-3be2-4758-bdb0-e7d514d03f37",
 		"name": "Azure Functions",
 		"description": "Azure Functions for Charleston Pride and Toast To Equality",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -26,8 +26,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Sponsorships",
@@ -74,8 +73,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Advertisements (Guide)",
@@ -128,7 +126,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "fefd9cb0-936c-445a-9d1c-89faf5c4c034",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -138,15 +135,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "851291cd-253e-484f-9491-1f2d3e13c6ee",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Directors",
@@ -165,8 +160,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Sponsors",
@@ -215,8 +209,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Toast to Equality",
@@ -263,15 +256,13 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "11cfb7aa-de5f-42e9-bc08-96cfa14d8910",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -281,7 +272,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "279c7e1f-73c2-402f-bf8e-a41c83a63150",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -291,53 +281,44 @@
 	],
 	"variable": [
 		{
-			"id": "fdbe68a1-cbed-47a3-a344-83482e2cdfc3",
 			"key": "envToast",
-			"value": "tte",
+			"value": "tte/",
 			"type": "string"
 		},
 		{
-			"id": "ceed338f-093c-4f83-a57a-498047d5014a",
 			"key": "envPride",
-			"value": "chspride",
+			"value": "chspride/",
 			"type": "string"
 		},
 		{
-			"id": "40b0c625-b1be-41cd-b390-7ac1dcf61cf4",
 			"key": "sponsorships",
 			"value": "sponsorships/",
 			"type": "string"
 		},
 		{
-			"id": "ebf7ef1f-0e01-4ebc-ba61-8b8af1715fe6",
 			"key": "advertisements",
 			"value": "guide/",
 			"type": "string"
 		},
 		{
-			"id": "bf1b11a7-a768-4d73-bb17-767c42e1d8a9",
 			"key": "settings",
 			"value": "settings/",
 			"type": "string"
 		},
 		{
-			"id": "588ff2c1-2323-4415-a352-f57c64d47bcb",
 			"key": "toast",
 			"value": "toast/",
 			"type": "string"
 		},
 		{
-			"id": "3ef4f0bc-b898-47c8-b700-3c83d3e01eb8",
 			"key": "directors",
 			"value": "directors/",
 			"type": "string"
 		},
 		{
-			"id": "146d91e1-1c64-4656-a409-d45ec1c0a790",
 			"key": "sponsors",
 			"value": "sponsors/",
 			"type": "string"
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
